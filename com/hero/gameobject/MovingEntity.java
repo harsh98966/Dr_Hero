@@ -4,6 +4,7 @@ import hero.controller.Controller;
 import hero.core.Direction;
 import hero.core.Motion;
 import hero.gfx.AnimationManager;
+import hero.gfx.SpriteLibrary;
 import hero.misc.Position;
 import hero.misc.Size;
 
@@ -16,8 +17,8 @@ public abstract class MovingEntity extends GameObject {
     protected AnimationManager animationManager;
     protected Direction direction;
 
-    public MovingEntity(Position position, Size size, Controller controller, AnimationManager animationManager) {
-        super(position, size);
+    public MovingEntity(Position position, Size size, Controller controller, AnimationManager animationManager, SpriteLibrary spriteLibrary) {
+        super(position, size, spriteLibrary);
         this.controller = controller;
         motion = new Motion(3);
         this.animationManager = animationManager;

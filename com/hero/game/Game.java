@@ -1,34 +1,29 @@
 package hero.game;
 
 import hero.display.Display;
-import hero.gameobject.GameObject;
-import hero.gameobject.Player;
+import hero.game.state.GameState;
 import hero.input.Input;
-import hero.controller.PlayerController;
-
-import java.util.ArrayList;
-import java.util.List;
+import hero.game.state.State;
+import hero.misc.Size;
 
 public class Game {
     private final Display display;
-    private List<GameObject> gameObjects;
     private Input input;
+    private State state;
 
 
     Game(int width, int height){
-        gameObjects = new ArrayList<>();
         input = new Input();
         display = new Display(width, height, input);
-        gameObjects.add(new Player(new PlayerController(input)));
+        state = new GameState(new Size(width, height), input);
     }
 
     public void update(){
-        gameObjects.forEach(GameObject::update);
+        state.update();
     }
-
-    public List<GameObject> getGameObjects(){ return gameObjects; }
 
     public void render(){
-        display.render(this);
+        display.render(state);
     }
+
 }

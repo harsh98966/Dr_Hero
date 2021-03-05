@@ -12,11 +12,12 @@ public class Player extends MovingEntity {
     private BufferedImage image;
     private Controller controller;
 
-    public Player(Controller controller) {
+    public Player(Controller controller, SpriteLibrary spriteLibrary) {
         super(new Position(0, 0),
                 new Size(50, 50),
                 controller,
-                new AnimationManager(SpriteLibrary.spriteLibrary.getSpriteSet("Player"))
+                new AnimationManager(spriteLibrary.getSpriteSet("Player")),
+                spriteLibrary
         );
     }
 

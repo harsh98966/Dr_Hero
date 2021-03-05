@@ -1,7 +1,7 @@
 package hero.display;
 
-import hero.game.Game;
 import hero.misc.Constants;
+import hero.game.state.State;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,7 +32,7 @@ public class Display extends JFrame {
 
     }
 
-    public void render(Game game){
+    public void render(State state){
         BufferStrategy bs = canvas.getBufferStrategy();
         if(bs == null){
             canvas.createBufferStrategy(3);
@@ -42,7 +42,10 @@ public class Display extends JFrame {
         // background
         g.setColor(new Color(Constants.BG_COLOR));
         g.fillRect(0, 0, Constants.WIDTH, Constants.HEIGHT);
-        renderer.render(game,g);
+
+        renderer.renderMap(state, g);
+        renderer.render(state,g);
+
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
         bs.show();

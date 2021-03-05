@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SpriteSet {
-    private Map<String, BufferedImage> animationSheet;
+    private final Map<String, BufferedImage> animationSheet;
     public SpriteSet(){
         animationSheet = new HashMap<>();
     }

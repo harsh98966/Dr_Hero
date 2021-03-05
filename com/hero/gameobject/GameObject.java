@@ -1,5 +1,6 @@
 package hero.gameobject;
 
+import hero.gfx.SpriteLibrary;
 import hero.misc.Position;
 import hero.misc.Size;
 
@@ -9,7 +10,7 @@ public abstract class GameObject {
     protected Position position;
     protected Size size;
 
-    public GameObject(Position position, Size size){
+    public GameObject(Position position, Size size, SpriteLibrary spriteLibrary){
         this.position = position;
         this.size = size;
     }
