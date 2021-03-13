@@ -4,6 +4,7 @@ import hero.misc.Constants;
 
 public class GameLoop implements Runnable{
 
+    public final double UPDATE_PER_SECOND = Constants.UPDATES_PER_SECOND;
     private boolean running;
     private int ups, fps;
     private Game game;
@@ -18,7 +19,7 @@ public class GameLoop implements Runnable{
         double acc = 0;
         double prevTime = System.nanoTime();
         double lastTime = System.currentTimeMillis();
-        double reqFps = 1000000000 / 60.0;
+        double reqFps = 1000000000 / UPDATE_PER_SECOND;
 
 
         while (running){
@@ -27,9 +28,9 @@ public class GameLoop implements Runnable{
             prevTime = currTime;
             while (acc > reqFps){
                 update();
-                render();
                 acc -= reqFps;
             }
+            render();
 
             if(System.currentTimeMillis() - lastTime >= 1000) {
                 lastTime = System.currentTimeMillis();

@@ -1,15 +1,24 @@
 package hero.misc;
 
+import hero.core.Motion;
 import hero.core.Vector2d;
 
+import java.util.List;
+
 public class Position {
+
+    public static final int PROXIMITY_RANGE = 5;
 
     private double x, y;
 
     public Position(double x, double y) {
         update(x, y);
     }
-    
+
+    public static Position copyOf(Position position) {
+        return new Position(position.x, position.y);
+    }
+
     public void update(double x, double y){
         this.x = x;
         this.y = y;
@@ -40,5 +49,19 @@ public class Position {
 
     public void setY(double y) {
         this.y = y;
+    }
+
+    public boolean isInRangeOf(Position target) {
+        double xx = Math.abs(target.getX() - x);
+        double yy = Math.abs(target.getY() - y);
+        return xx <= PROXIMITY_RANGE && yy <= PROXIMITY_RANGE;
+    }
+
+    public void applyVecOnX(Motion motion) {
+        this.x += motion.getVector().getX();
+    }
+
+    public void applyVecOnY(Motion motion) {
+        this.y += motion.getVector().getY();
     }
 }

@@ -4,30 +4,42 @@ import hero.controller.NPC_Controller;
 import hero.controller.PlayerController;
 import hero.gameobject.NPC;
 import hero.gameobject.Player;
-import hero.gfx.AnimationManager;
 import hero.input.Input;
+import hero.map.GameMap;
+import hero.misc.Constants;
 import hero.misc.Position;
 import hero.misc.Size;
+import hero.ui.*;
 
-import java.awt.event.KeyEvent;
+import java.awt.*;
 import java.util.Comparator;
+
 
 public class GameState extends State {
 
-    Player player;
-    NPC ai;
     public GameState(Size windowSize, Input input) {
         super(windowSize, input);
-         player = new Player(new PlayerController(input), spriteLibrary);
+        Player player = new Player(new PlayerController(input), spriteLibrary);
         gameObjects.add(player);
+        gameMap = new GameMap(new Size(40, 20), spriteLibrary);
         camera.focusOn(player);
-         ai = new NPC(new Position(1000, 50),
-                new Size(50, 50),
-                new NPC_Controller(),
-                new AnimationManager(spriteLibrary.getSpriteSet("NPC")),
-                spriteLibrary
-        );
-        gameObjects.add(ai);
+        generateNPC();
+        initUI();
+    }
+
+    private void initUI() {
+        UIContainer uiContainer = new HorizontalContainer();
+        uiContainer.setBackgroundColor(Color.darkGray);
+        uiContainer.add(new UIText("Harsh"));
+        uiContainers.add(uiContainer);
+
+    }
+
+    private void generateNPC() {
+        for (int i = 0; i < 80; i++) {
+            Position pos = new Position(Math.random() * gameMap.getTiles().length * Constants.SPRITE_SIZE, Math.random() * gameMap.getTiles().length * Constants.SPRITE_SIZE);
+            gameObjects.add(new NPC(pos, new NPC_Controller(), spriteLibrary));
+        }
     }
 
     @Override

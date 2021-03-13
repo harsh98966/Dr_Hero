@@ -1,29 +1,37 @@
 package hero.gameobject;
 
 import hero.controller.Controller;
+import hero.game.action.Cough;
+import hero.game.state.State;
 import hero.gfx.AnimationManager;
 import hero.gfx.SpriteLibrary;
+import hero.misc.Constants;
 import hero.misc.Position;
 import hero.misc.Size;
 
-import java.awt.image.BufferedImage;
-
 public class Player extends MovingEntity {
-    private BufferedImage image;
-    private Controller controller;
 
     public Player(Controller controller, SpriteLibrary spriteLibrary) {
-        super(new Position(0, 0),
-                new Size(50, 50),
-                controller,
-                new AnimationManager(spriteLibrary.getSpriteSet("Player")),
-                spriteLibrary
+        super(new Position(70, 700),
+                new Size(Constants.SPRITE_SIZE, Constants.SPRITE_SIZE),
+                controller
         );
+        initAnimationManager(spriteLibrary);
     }
 
     @Override
-    public void update() {
-        super.update();
+    protected void initAnimationManager(SpriteLibrary spriteLibrary) {
+        animationManager = new AnimationManager(spriteLibrary.getSpriteSet("Player"));
+        animationManager.setAnimation("stand");
     }
 
+    @Override
+    public void update(State state) {
+        super.update(state);
+    }
+
+    @Override
+    protected void handleCollision(GameObject gameObject) {
+        motion.stop(willCollideX(gameObject), willCollideY(gameObject));
+    }
 }

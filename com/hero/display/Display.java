@@ -12,6 +12,7 @@ public class Display extends JFrame {
 
     private Canvas canvas;
     private Renderer renderer;
+    private DebugRenderer debugRenderer;
 
     public Display(int width, int height, KeyListener keyListener){
 
@@ -23,16 +24,17 @@ public class Display extends JFrame {
         canvas.setFocusable(false);
         add(canvas);
         pack();
-        canvas.createBufferStrategy(3);
+        canvas.createBufferStrategy(2);
         addKeyListener(keyListener);
         setLocationRelativeTo(null);
         setVisible(true);
 
         renderer = new Renderer();
+        debugRenderer = new DebugRenderer();
 
     }
 
-    public void render(State state){
+    public void render(State state, boolean debugMode){
         BufferStrategy bs = canvas.getBufferStrategy();
         if(bs == null){
             canvas.createBufferStrategy(3);
@@ -43,8 +45,10 @@ public class Display extends JFrame {
         g.setColor(new Color(Constants.BG_COLOR));
         g.fillRect(0, 0, Constants.WIDTH, Constants.HEIGHT);
 
-        renderer.renderMap(state, g);
         renderer.render(state,g);
+        if(debugMode){
+            debugRenderer.render(state, g);
+        }
 
         Toolkit.getDefaultToolkit().sync();
         g.dispose();

@@ -1,26 +1,42 @@
 package hero.controller;
 
-public class NPC_Controller implements Controller{
+import hero.misc.Position;
 
+public class NPC_Controller implements Controller {
+
+    private boolean up, right, down, left;
 
     @Override
     public boolean isReqUP() {
-        return false;
-    }
-
-    @Override
-    public boolean isReqLeft() {
-        return false;
+        return up;
     }
 
     @Override
     public boolean isReqRight() {
-        return false;
+        return right;
     }
 
     @Override
     public boolean isReqDown() {
-        return false;
+        return down;
+    }
+
+    @Override
+    public boolean isReqLeft() {
+        return left;
+    }
+
+    public void moveToTarget(Position current, Position target) {
+        double x = target.getX() - current.getX();
+        double y = target.getY() - current.getY();
+        up = y < 0 && Math.abs(y) > Position.PROXIMITY_RANGE;
+        right = x > 0 && Math.abs(x) > Position.PROXIMITY_RANGE;
+        down = y > 0 && Math.abs(y) > Position.PROXIMITY_RANGE;
+        left = x < 0 && Math.abs(x) > Position.PROXIMITY_RANGE;
+    }
+
+    public void stop(){
+        up = right = down = left = false;
     }
 
 }

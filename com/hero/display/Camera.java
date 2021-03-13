@@ -6,17 +6,27 @@ import hero.misc.Constants;
 import hero.misc.Position;
 import hero.misc.Size;
 
+import java.awt.*;
 import java.util.Optional;
 
 public class Camera {
+
+    private final static int SAFETY_SPACE = 2;
+
     private Size windowSize;
     private Position position;
     private Optional<GameObject> objectWithFocus;
+    private Rectangle viewBounds;
 
     public Camera(Size windowSize) {
         position = new Position(0, 0);
         this.windowSize = windowSize;
         objectWithFocus = Optional.empty();
+        calculateViewBounds();
+    }
+
+    private void calculateViewBounds() {
+        viewBounds = new Rectangle(position.intX(), position.intY(), windowSize.getWidth() + SAFETY_SPACE * Constants.SPRITE_SIZE, windowSize.getHeight() + SAFETY_SPACE * Constants.SPRITE_SIZE);
     }
 
     public void focusOn(GameObject object) {
@@ -28,6 +38,7 @@ public class Camera {
             position.update(object.getPosition().getX() - windowSize.getWidth() / 2,
                     object.getPosition().getY() - windowSize.getHeight() / 2);
             clampWithinBounds(state);
+            calculateViewBounds();
         });
 
 
@@ -52,5 +63,16 @@ public class Camera {
 
     public GameObject focusedOn(){
         return objectWithFocus.orElse(null);
+    }
+
+    public boolean isInView(GameObject gameobject) {
+        return viewBounds.intersects(new Rectangle(gameobject.getPosition().intX(),
+                gameobject.getPosition().intY(),
+                Constants.SPRITE_SIZE,
+                Constants.SPRITE_SIZE));
+    }
+
+    public Size getSize() {
+        return windowSize;
     }
 }

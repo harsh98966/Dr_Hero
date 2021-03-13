@@ -43,4 +43,15 @@ public class Motion {
     public boolean isMoving() {
         return vector.length() > 0;
     }
+
+    public void multiplySpeed(double speedMul) {
+        vector.multiply(speedMul);
+    }
+
+    public void stop(boolean stopX, boolean stopY) {
+        vector.update(
+                stopX ? 0 : vector.getX(),
+                stopY ? 0 : vector.getY()
+        );
+    }
 }
