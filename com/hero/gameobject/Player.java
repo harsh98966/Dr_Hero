@@ -1,7 +1,6 @@
 package hero.gameobject;
 
-import hero.controller.Controller;
-import hero.game.action.Cough;
+import hero.controller.EntityController;
 import hero.game.state.State;
 import hero.gfx.AnimationManager;
 import hero.gfx.SpriteLibrary;
@@ -11,10 +10,10 @@ import hero.misc.Size;
 
 public class Player extends MovingEntity {
 
-    public Player(Controller controller, SpriteLibrary spriteLibrary) {
+    public Player(EntityController entityController, SpriteLibrary spriteLibrary) {
         super(new Position(70, 700),
                 new Size(Constants.SPRITE_SIZE, Constants.SPRITE_SIZE),
-                controller
+                entityController
         );
         initAnimationManager(spriteLibrary);
     }

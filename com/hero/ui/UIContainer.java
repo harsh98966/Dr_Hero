@@ -11,13 +11,20 @@ import java.util.List;
 public abstract class UIContainer extends UIComponent {
 
     protected Color bgColor;
-    List<UIComponent> childrens;
+    protected List<UIComponent> childrens;
 
-    public UIContainer() {
+    protected Alignment alignment;
+
+    protected Size windowSize;
+
+
+    public UIContainer(Size windowSize) {
         super();
-        bgColor = Color.RED;
         childrens = new ArrayList<>();
+        bgColor = new Color(0, true);
         calculateSize();
+        this.windowSize = windowSize;
+        alignment = new Alignment(Alignment.Position.START, Alignment.Position.START);
         calculatePosition();
     }
 
@@ -30,14 +37,32 @@ public abstract class UIContainer extends UIComponent {
     }
 
     public void calculatePosition(){
-        position.update(margin.getLeft(), margin.getTop());
+        int x = margin.getLeft();
+        int y = margin.getTop();
+
+        if(alignment.getHorizontal().equals(Alignment.Position.CENTER)){
+            x = windowSize.getWidth() / 2 - size.getWidth() / 2;
+        }
+        else if(alignment.getHorizontal().equals(Alignment.Position.END)){
+            x = windowSize.getWidth() - size.getWidth() - margin.getRight();
+        }
+
+
+        if(alignment.getVertical().equals(Alignment.Position.CENTER)){
+            y = windowSize.getHeight() / 2 - size.getHeight() / 2;
+        }
+        else if(alignment.getVertical().equals(Alignment.Position.END)){
+            y = windowSize.getHeight() - size.getHeight() - margin.getBottom();
+        }
+
+        position.update(x, y);
         calculateContentPosition();
     }
 
 
     @Override
     public BufferedImage getSprite() {
-        BufferedImage image = new BufferedImage(size.getWidth(), size.getHeight(), BufferedImage.TYPE_INT_RGB);
+        BufferedImage image = new BufferedImage(size.getWidth(), size.getHeight(), BufferedImage.BITMASK);
         Graphics2D g = image.createGraphics();
         g.setColor(bgColor);
         g.fillRect(0, 0, size.getWidth(), size.getHeight());

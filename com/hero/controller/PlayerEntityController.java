@@ -4,32 +4,32 @@ import hero.input.Input;
 
 import java.awt.event.KeyEvent;
 
-public class PlayerController implements  Controller {
+public class PlayerEntityController implements EntityController {
 
     private final Input input;
 
-    public PlayerController(Input input){
+    public PlayerEntityController(Input input){
         this.input = input;
     }
 
     @Override
     public boolean isReqUP() {
-        return input.isPressed(KeyEvent.VK_UP);
+        return input.isCurrentlyPressed(KeyEvent.VK_UP);
     }
 
     @Override
     public boolean isReqLeft() {
-        return input.isPressed(KeyEvent.VK_LEFT);
+        return input.isCurrentlyPressed(KeyEvent.VK_LEFT);
     }
 
     @Override
     public boolean isReqRight() {
-        return input.isPressed(KeyEvent.VK_RIGHT);
+        return input.isCurrentlyPressed(KeyEvent.VK_RIGHT);
 
     }
 
     @Override
     public boolean isReqDown() {
-        return input.isPressed(KeyEvent.VK_DOWN);
+        return input.isCurrentlyPressed(KeyEvent.VK_DOWN);
     }
 }

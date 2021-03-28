@@ -4,6 +4,10 @@ import hero.misc.Position;
 import hero.misc.Size;
 
 public class VerticalContainer extends UIContainer {
+    public VerticalContainer(Size windowSize) {
+        super(windowSize);
+    }
+
     @Override
     public Size calculateContentSize() {
         int widestWidth = 0;

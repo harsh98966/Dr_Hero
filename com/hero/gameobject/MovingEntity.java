@@ -1,13 +1,13 @@
 package hero.gameobject;
 
-import hero.controller.Controller;
+import hero.controller.EntityController;
 import hero.core.CollisionBox;
 import hero.core.Direction;
 import hero.core.Motion;
-import hero.game.Game;
+
 import hero.game.action.Action;
 import hero.game.effects.Effect;
-import hero.game.effects.Sick;
+
 import hero.game.state.State;
 import hero.gfx.AnimationManager;
 import hero.gfx.SpriteLibrary;
@@ -23,7 +23,7 @@ import java.util.Optional;
 
 public abstract class MovingEntity extends GameObject {
 
-    protected Controller controller;
+    protected EntityController entityController;
     protected Motion motion;
     protected AnimationManager animationManager;
     protected Direction direction;
@@ -33,9 +33,9 @@ public abstract class MovingEntity extends GameObject {
 
     protected Size collisionBoxSize;
 
-    public MovingEntity(Position position, Size size, Controller controller) {
+    public MovingEntity(Position position, Size size, EntityController entityController) {
         super(position, size);
-        this.controller = controller;
+        this.entityController = entityController;
         motion = new Motion(2);
         direction = Direction.S;
         effects = new ArrayList<>();
@@ -49,7 +49,7 @@ public abstract class MovingEntity extends GameObject {
     public void update(State state) {
 
         if (action.isEmpty()) {
-            motion.update(controller);
+            motion.update(entityController);
         } else {
             motion.stop(true, true);
             action.get().update(state, this);
@@ -94,8 +94,8 @@ public abstract class MovingEntity extends GameObject {
         return animationManager.getSprite();
     }
 
-    public Controller getController() {
-        return controller;
+    public EntityController getController() {
+        return entityController;
     }
 
     public void performAction(Action action) {
@@ -120,22 +120,21 @@ public abstract class MovingEntity extends GameObject {
         );
     }
 
-    @Override
-    public boolean CollidesWith(CollisionBox other) {
-        return getCollisionBox().collidesWith(other);
-    }
-
-    public boolean willCollideX(GameObject other){
+    public boolean willCollideX(GameObject other) {
         CollisionBox otherBox = other.getCollisionBox();
         Position posWithAppliedX = Position.copyOf(position);
         posWithAppliedX.applyVecOnX(motion);
         return CollisionBox.of(posWithAppliedX, size).collidesWith(otherBox);
     }
 
-    public boolean willCollideY(GameObject other){
+    public boolean willCollideY(GameObject other) {
         CollisionBox otherBox = other.getCollisionBox();
         Position posWithAppliedY = Position.copyOf(position);
         posWithAppliedY.applyVecOnY(motion);
         return CollisionBox.of(posWithAppliedY, size).collidesWith(otherBox);
+    }
+
+    public boolean isAffected(Class<?> clazz) {
+        return effects.stream().anyMatch(clazz::isInstance);
     }
 }

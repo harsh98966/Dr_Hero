@@ -1,9 +1,7 @@
 package hero.gameobject;
 
 import hero.ai.AIManager;
-import hero.controller.Controller;
-import hero.game.action.Cough;
-import hero.game.effects.Sick;
+import hero.controller.EntityController;
 import hero.game.state.State;
 import hero.gfx.AnimationManager;
 import hero.gfx.SpriteLibrary;
@@ -13,10 +11,9 @@ import hero.misc.Size;
 
 public class NPC extends MovingEntity {
     private AIManager aiManager;
-    public NPC(Position position, Controller controller, SpriteLibrary spriteLibrary) {
-        super(position, new Size(Constants.SPRITE_SIZE, Constants.SPRITE_SIZE), controller);
+    public NPC(Position position, EntityController entityController, SpriteLibrary spriteLibrary) {
+        super(position, new Size(Constants.SPRITE_SIZE, Constants.SPRITE_SIZE), entityController);
         aiManager = new AIManager();
-        addEffect(new Sick());
         initAnimationManager(spriteLibrary);
     }
 
@@ -36,6 +33,7 @@ public class NPC extends MovingEntity {
     protected void handleCollision(GameObject other) {
         if(other instanceof Player){
             motion.stop(willCollideX(other), willCollideY(other));
+            effects.clear();
         }
     }
 

@@ -1,10 +1,15 @@
 package hero.ui;
 
+
 import hero.game.state.State;
+
 import hero.misc.Size;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+
+import java.io.InputStream;
+
 
 public class UIText extends UIComponent {
 
@@ -23,65 +28,71 @@ public class UIText extends UIComponent {
 
     private Font font;
 
-    public UIText(String text, int fontSize){
+    public UIText(String text, String fontFamily) {
         this(text);
-        this.fontSize = fontSize;
+        this.fontFamily = fontFamily;
     }
 
 
-
-    public UIText(String text){
+    public UIText(String text) {
         this.text = text;
-        fontSize = 20;
-        fontStyle = Font.PLAIN;
-        fontFamily = Font.MONOSPACED;
+
+        fontSize = 18;
+        fontStyle = Font.BOLD;
+        fontFamily = "joystix_monospace";
         fontColor = Color.WHITE;
-        dropShadow = false;
-        dropShadowOffset = 1;
-        shadowColor = new Color(148, 148, 148);
-        calculatedFontHeight = calculatedFontWidth = 0;
-        font = new Font(fontFamily, fontStyle, fontSize);
+
+        dropShadow = true;
+        dropShadowOffset = 3;
+        shadowColor = new Color(0, 0, 0);
+
+        calculatedFontHeight = calculatedFontWidth = 1;
+        createFont();
     }
-
-    private void calculateSize(){
-        FontMetrics fontMetrics = new Canvas().getFontMetrics(font);
-        calculatedFontWidth = fontMetrics.stringWidth(text);
-        calculatedFontHeight = fontMetrics.getHeight();
-        size = new Size(
-                calculatedFontWidth,
-                 calculatedFontHeight
-        );
-    }
-
-
 
 
     @Override
     public BufferedImage getSprite() {
-        BufferedImage image = new BufferedImage(size.getWidth(), size.getHeight(), BufferedImage.BITMASK);
-        Graphics g = image.createGraphics();
+        BufferedImage image = new BufferedImage(calculatedFontWidth + padding.getLeft(), size.getHeight(), BufferedImage.BITMASK);
+        Graphics g = image.getGraphics();
+        g.setFont(font);
 
-        if(dropShadow){
+        if (dropShadow) {
             g.setColor(shadowColor);
-            g.drawString(text, padding.getLeft() + dropShadowOffset,  padding.getTop() + fontSize + dropShadowOffset);
+            g.drawString(text, padding.getLeft() + dropShadowOffset, padding.getTop() + fontSize + dropShadowOffset);
         }
 
         g.setColor(fontColor);
-        g.drawString(text, padding.getLeft(), padding.getTop());
+        g.drawString(text, padding.getLeft(), padding.getTop() + fontSize);
         g.dispose();
         return image;
     }
 
     @Override
     public void update(State state) {
-        createFont();
         calculateSize();
     }
 
-    private void createFont() {
-        font = new Font(fontFamily, fontStyle, fontSize);
+    private void calculateSize(){
+        FontMetrics fontMetrics = new Canvas().getFontMetrics(font);
+        calculatedFontWidth = fontMetrics.stringWidth(text);
+        calculatedFontHeight = fontMetrics.getHeight();
+        if(dropShadow) calculatedFontWidth += dropShadowOffset;
+        size = new Size(
+                calculatedFontWidth + padding.getHorizontal(),
+                calculatedFontHeight + padding.getVertical()
+        );
     }
 
+    private void createFont() {
+        String fName = "/Fonts/" + fontFamily + ".ttf";
+        InputStream is = getClass().getResourceAsStream(fName);
+        try {
+            font = Font.createFont(Font.TRUETYPE_FONT, is).deriveFont(fontStyle, fontSize);
+        } catch (Exception e) {
+            font = new Font(fontFamily, fontStyle, fontSize);
+        }
+    }
 
     public void setText(String text) {
         this.text = text;
@@ -89,14 +100,17 @@ public class UIText extends UIComponent {
 
     public void setFontSize(int fontSize) {
         this.fontSize = fontSize;
+        createFont();
     }
 
     public void setFontStyle(int fontStyle) {
         this.fontStyle = fontStyle;
+        createFont();
     }
 
     public void setFontFamily(String fontFamily) {
         this.fontFamily = fontFamily;
+        createFont();
     }
 
     public void setFontColor(Color fontColor) {

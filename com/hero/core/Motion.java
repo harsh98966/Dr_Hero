@@ -1,6 +1,6 @@
 package hero.core;
 
-import hero.controller.Controller;
+import hero.controller.EntityController;
 
 public class Motion {
     private Vector2d vector;
@@ -11,23 +11,23 @@ public class Motion {
         vector = new Vector2d(0, 0);
     }
 
-    public void update(Controller controller){
+    public void update(EntityController entityController){
         int deltaX = 0;
         int deltaY = 0;
 
-        if(controller.isReqUP()){
+        if(entityController.isReqUP()){
             deltaY--;
         }
 
-        if(controller.isReqDown()){
+        if(entityController.isReqDown()){
             deltaY++;
         }
 
-        if(controller.isReqLeft()){
+        if(entityController.isReqLeft()){
             deltaX--;
         }
 
-        if(controller.isReqRight()){
+        if(entityController.isReqRight()){
             deltaX++;
         }
 

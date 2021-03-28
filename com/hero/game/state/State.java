@@ -3,18 +3,19 @@ package hero.game.state;
 import hero.display.Camera;
 import hero.game.Time;
 import hero.gameobject.GameObject;
+import hero.gameobject.SelectionCircle;
 import hero.gfx.SpriteLibrary;
 import hero.input.Input;
 import hero.map.GameMap;
 import hero.misc.Position;
 import hero.misc.Size;
 import hero.ui.UIContainer;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class State {
+
 
     protected GameMap gameMap;
     protected List<GameObject> gameObjects;
@@ -24,13 +25,16 @@ public abstract class State {
     protected Time time;
     protected List<UIContainer> uiContainers;
 
+    protected boolean debug;
+
     public State(Size windowSize, Input input) {
-        gameObjects = new ArrayList<>();
         this.input = input;
+        gameObjects = new ArrayList<>();
         spriteLibrary = new SpriteLibrary();
         camera = new Camera(windowSize);
         time = new Time();
         uiContainers = new ArrayList<>();
+        debug = false;
     }
 
     public void update() {
@@ -67,6 +71,13 @@ public abstract class State {
         return gameObjects.stream()
                 .filter(other -> other != otherGameObject)
                 .filter(other -> other.CollidesWith(otherGameObject.getCollisionBox()))
+                .collect(Collectors.toList());
+    }
+
+    public <T extends GameObject> List<T> getGameObjectOfClass(Class<T> clazz){
+        return gameObjects.stream()
+                .filter(clazz::isInstance)
+                .map(gameObject -> (T)gameObject)
                 .collect(Collectors.toList());
     }
 

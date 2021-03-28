@@ -24,7 +24,7 @@ public class GameLoop implements Runnable{
 
         while (running){
             double currTime = System.nanoTime();
-            acc += currTime - prevTime;
+            acc += (currTime - prevTime) * game.getSettings().getGameSpeed();
             prevTime = currTime;
             while (acc > reqFps){
                 update();

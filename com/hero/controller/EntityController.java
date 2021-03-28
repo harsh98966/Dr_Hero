@@ -1,6 +1,6 @@
 package hero.controller;
 
-public interface Controller {
+public interface EntityController {
     boolean isReqUP();
     boolean isReqLeft();
     boolean isReqRight();

@@ -4,6 +4,10 @@ import hero.misc.Position;
 import hero.misc.Size;
 
 public class HorizontalContainer extends UIContainer {
+    public HorizontalContainer(Size windowSize) {
+        super(windowSize);
+    }
+
     @Override
     public Size calculateContentSize() {
         int tallestHeight = 0;

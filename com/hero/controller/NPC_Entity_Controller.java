@@ -2,7 +2,7 @@ package hero.controller;
 
 import hero.misc.Position;
 
-public class NPC_Controller implements Controller {
+public class NPC_Entity_Controller implements EntityController {
 
     private boolean up, right, down, left;
 

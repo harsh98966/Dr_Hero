@@ -1,7 +1,7 @@
 package hero.ai.state;
 
 import hero.ai.AITransition;
-import hero.controller.NPC_Controller;
+import hero.controller.NPC_Entity_Controller;
 import hero.game.state.State;
 import hero.gameobject.NPC;
 import hero.misc.Position;
@@ -27,7 +27,7 @@ public class Wander extends AIState {
             targets.add(state.getRandomPosition());
         }
 
-        NPC_Controller controller = (NPC_Controller) currentCharacter.getController();
+        NPC_Entity_Controller controller = (NPC_Entity_Controller) currentCharacter.getController();
         controller.moveToTarget(currentCharacter.getPosition(), targets.get(0));
 
         if(arrived(currentCharacter)){
