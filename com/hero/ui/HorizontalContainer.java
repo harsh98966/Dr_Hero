@@ -1,7 +1,7 @@
 package hero.ui;
 
-import hero.misc.Position;
-import hero.misc.Size;
+import hero.core.Position;
+import hero.core.Size;
 
 public class HorizontalContainer extends UIContainer {
     public HorizontalContainer(Size windowSize) {

@@ -33,4 +33,26 @@ public class Vector2d {
     public double length() {
         return Math.sqrt(x * x + y * y);
     }
+
+    public static Vector2d directionBetweenPositions(Position start, Position end){
+        Vector2d direction = new Vector2d(start.getX() - end.getX(), start.getY() - end.getY());
+        direction.normalize();
+        return direction;
+    }
+
+
+    public static double dotProduct(Vector2d v1, Vector2d v2){
+        return v1.getX() * v2.getX() + v1.getY() * v2.getY();
+    }
+
+
+    public static Vector2d copyOf(Vector2d vector2d){
+        return new Vector2d(vector2d.getX(), vector2d.getY());
+    }
+
+
+
+
+
+
 }

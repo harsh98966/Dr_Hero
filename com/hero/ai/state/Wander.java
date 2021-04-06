@@ -4,7 +4,7 @@ import hero.ai.AITransition;
 import hero.controller.NPC_Entity_Controller;
 import hero.game.state.State;
 import hero.gameobject.NPC;
-import hero.misc.Position;
+import hero.core.Position;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,4 @@
-package hero.misc;
-
-import hero.core.Motion;
-import hero.core.Vector2d;
-
-import java.util.List;
+package hero.core;
 
 public class Position {
 
@@ -69,4 +64,11 @@ public class Position {
         x += position.getX();
         y += position.getY();
     }
+
+    public double distanceTo(Position other){
+        double deltaX = x - other.getX();
+        double deltaY = y - other.getY();
+        return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    }
+
 }

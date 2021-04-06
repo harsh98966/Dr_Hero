@@ -3,13 +3,14 @@ package hero.gameobject;
 import hero.ai.AIManager;
 import hero.controller.EntityController;
 import hero.game.state.State;
+import hero.gameobject.humanoid.Humanoid;
 import hero.gfx.AnimationManager;
 import hero.gfx.SpriteLibrary;
-import hero.misc.Constants;
-import hero.misc.Position;
-import hero.misc.Size;
+import hero.core.Constants;
+import hero.core.Position;
+import hero.core.Size;
 
-public class NPC extends MovingEntity {
+public class NPC extends Humanoid {
     private AIManager aiManager;
     public NPC(Position position, EntityController entityController, SpriteLibrary spriteLibrary) {
         super(position, new Size(Constants.SPRITE_SIZE, Constants.SPRITE_SIZE), entityController);

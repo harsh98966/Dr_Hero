@@ -3,9 +3,9 @@ package hero.map;
 import hero.display.Camera;
 import hero.gfx.SpriteLibrary;
 import hero.gfx.Tile;
-import hero.misc.Constants;
-import hero.misc.Position;
-import hero.misc.Size;
+import hero.core.Constants;
+import hero.core.Position;
+import hero.core.Size;
 
 import java.util.Arrays;
 

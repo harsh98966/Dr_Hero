@@ -1,4 +1,4 @@
-package hero.misc;
+package hero.core;
 
 public class Size {
     private int width, height;

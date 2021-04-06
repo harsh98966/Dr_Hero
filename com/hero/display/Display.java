@@ -1,6 +1,6 @@
 package hero.display;
 
-import hero.misc.Constants;
+import hero.core.Constants;
 import hero.game.state.State;
 
 import javax.swing.*;
@@ -24,7 +24,7 @@ public class Display extends JFrame {
         canvas.setFocusable(false);
         add(canvas);
         pack();
-        canvas.createBufferStrategy(2);
+
         addKeyListener(keyListener);
         setLocationRelativeTo(null);
         setVisible(true);
@@ -37,7 +37,7 @@ public class Display extends JFrame {
     public void render(State state, boolean debugMode){
         BufferStrategy bs = canvas.getBufferStrategy();
         if(bs == null){
-            canvas.createBufferStrategy(3);
+            canvas.createBufferStrategy(2);
             return;
         }
         Graphics g = bs.getDrawGraphics();
@@ -50,9 +50,9 @@ public class Display extends JFrame {
             debugRenderer.render(state, g);
         }
 
-        Toolkit.getDefaultToolkit().sync();
         g.dispose();
         bs.show();
+        Toolkit.getDefaultToolkit().sync();
 
     }
 

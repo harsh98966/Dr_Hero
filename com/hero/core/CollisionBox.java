@@ -1,8 +1,5 @@
 package hero.core;
 
-import hero.misc.Position;
-import hero.misc.Size;
-
 import java.awt.*;
 
 public class CollisionBox {

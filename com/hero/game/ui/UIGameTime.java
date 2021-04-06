@@ -1,7 +1,7 @@
 package hero.game.ui;
 
 import hero.game.state.State;
-import hero.misc.Size;
+import hero.core.Size;
 import hero.ui.Alignment;
 import hero.ui.UIText;
 import hero.ui.VerticalContainer;

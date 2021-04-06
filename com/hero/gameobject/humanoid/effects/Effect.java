@@ -1,8 +1,8 @@
-package hero.game.effects;
+package hero.gameobject.humanoid.effects;
 
 import hero.game.state.State;
-import hero.gameobject.MovingEntity;
-import hero.misc.Constants;
+import hero.core.Constants;
+import hero.gameobject.humanoid.Humanoid;
 
 public abstract class Effect {
 
@@ -21,7 +21,7 @@ public abstract class Effect {
         this.lifeSpan = lifeSpan * (int)Constants.UPDATES_PER_SECOND;
     }
 
-    public void update(State state, MovingEntity entity){
+    public void update(State state, Humanoid humanoid){
         if(effectType.equals(TYPE.SHORT_LIFE_SPAN)) lifeSpan--;
     }
 

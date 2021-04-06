@@ -1,6 +1,6 @@
 package hero.game;
 
-import hero.misc.Constants;
+import hero.core.Constants;
 
 public class Time {
     private long updateSinceStart;

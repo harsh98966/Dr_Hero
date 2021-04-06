@@ -2,9 +2,9 @@ package hero.display;
 
 import hero.game.state.State;
 import hero.gameobject.GameObject;
-import hero.misc.Constants;
-import hero.misc.Position;
-import hero.misc.Size;
+import hero.core.Constants;
+import hero.core.Position;
+import hero.core.Size;
 
 import java.awt.*;
 import java.util.Optional;

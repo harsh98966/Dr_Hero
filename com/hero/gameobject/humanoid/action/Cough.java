@@ -1,12 +1,12 @@
-package hero.game.action;
+package hero.gameobject.humanoid.action;
 
 import hero.core.CollisionBox;
-import hero.game.effects.Sick;
+import hero.gameobject.humanoid.effects.Sick;
 import hero.game.state.State;
-import hero.gameobject.MovingEntity;
-import hero.misc.Constants;
-import hero.misc.Position;
-import hero.misc.Size;
+import hero.core.Constants;
+import hero.core.Position;
+import hero.core.Size;
+import hero.gameobject.humanoid.Humanoid;
 
 public class Cough extends Action {
 
@@ -21,20 +21,20 @@ public class Cough extends Action {
     }
 
     @Override
-    public void update(State state, MovingEntity entity) {
+    public void update(State state, Humanoid performer) {
         if (--lifeSpan <= 0) {
             Position spreadPosition = new Position(
-                    entity.getPosition().getX() - spreadArea.getWidth() / 2,
-                    entity.getPosition().getY() - spreadArea.getHeight() / 2
+                    performer.getPosition().getX() - spreadArea.getWidth() / 2,
+                    performer.getPosition().getY() - spreadArea.getHeight() / 2
             );
             CollisionBox spreadBox = CollisionBox.of(spreadPosition, spreadArea);
 
-            state.getGameObjectOfClass(MovingEntity.class).stream()
-                    .filter(movingEntity -> movingEntity.getCollisionBox().collidesWith(spreadBox))
-                    .filter(movingEntity -> !movingEntity.isAffected(Sick.class))
-                    .forEach(movingEntity -> {
+            state.getGameObjectOfClass(Humanoid.class).stream()
+                    .filter(humanoid -> humanoid.getCollisionBox().collidesWith(spreadBox))
+                    .filter(humanoid -> !humanoid.isAffected(Sick.class))
+                    .forEach(humanoid -> {
                         if (Math.random() < risk) {
-                            movingEntity.addEffect(new Sick());
+                            humanoid.addEffect(new Sick());
                         }
                     });
 

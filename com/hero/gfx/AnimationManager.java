@@ -1,7 +1,7 @@
 package hero.gfx;
 
 import hero.core.Direction;
-import hero.misc.Constants;
+import hero.core.Constants;
 
 import java.awt.image.BufferedImage;
 
@@ -20,7 +20,6 @@ public class AnimationManager {
         frameIndex = 0;
         currentFrameTime = 0;
         currentAnimationName = "";
-
     }
 
     public BufferedImage getSprite() {

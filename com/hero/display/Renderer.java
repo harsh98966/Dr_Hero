@@ -3,8 +3,8 @@ package hero.display;
 import hero.game.state.State;
 import hero.gfx.Tile;
 import hero.map.GameMap;
-import hero.misc.Constants;
-import hero.misc.Position;
+import hero.core.Constants;
+import hero.core.Position;
 
 import java.awt.*;
 
@@ -29,11 +29,10 @@ public class Renderer {
     private void renderGameObjects(State state, Graphics graphics){
         Camera camera = state.getCamera();
         state.getGameObjects().stream().filter(camera::isInView).forEach(g -> {
-                    Position pos = g.getPosition();
                     graphics.drawImage(
                             g.getSprite(),
-                            pos.intX() - camera.getPosition().intX() - Constants.SPRITE_SIZE / 2,
-                            pos.intY() - state.getCamera().getPosition().intY() - Constants.SPRITE_SIZE / 2,
+                            g.getRenderPosition(state).intX(),
+                            g.getRenderPosition(state).intY(),
                             null);
                 }
         );

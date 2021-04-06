@@ -1,6 +1,6 @@
 package hero.controller;
 
-import hero.misc.Position;
+import hero.core.Position;
 
 public class NPC_Entity_Controller implements EntityController {
 

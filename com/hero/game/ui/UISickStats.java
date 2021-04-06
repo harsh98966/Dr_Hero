@@ -1,10 +1,9 @@
 package hero.game.ui;
 
-import hero.game.effects.Sick;
+import hero.gameobject.humanoid.effects.Sick;
 import hero.game.state.State;
-import hero.gameobject.GameObject;
-import hero.gameobject.MovingEntity;
-import hero.misc.Size;
+import hero.core.Size;
+import hero.gameobject.humanoid.Humanoid;
 import hero.ui.*;
 
 public class UISickStats extends HorizontalContainer {
@@ -34,16 +33,12 @@ public class UISickStats extends HorizontalContainer {
     @Override
     public void update(State state) {
         super.update(state);
-        long sick = state.getGameObjects().stream()
-                .filter(gameObject -> gameObject instanceof MovingEntity)
-                .map(gameObject -> (MovingEntity) gameObject)
-                .filter(movingEntity -> movingEntity.isAffected(Sick.class))
+        long sick = state.getGameObjectOfClass(Humanoid.class).stream()
+                .filter(humanoid -> humanoid.isAffected(Sick.class))
                 .count();
 
-        long healthy = state.getGameObjects().stream()
-                .filter(gameObject -> gameObject instanceof MovingEntity)
-                .map(gameObject -> (MovingEntity) gameObject)
-                .filter(movingEntity -> !movingEntity.isAffected(Sick.class))
+        long healthy = state.getGameObjectOfClass(Humanoid.class).stream()
+                .filter(humanoid -> !humanoid.isAffected(Sick.class))
                 .count();
 
         sickText.setText(String.valueOf(sick));

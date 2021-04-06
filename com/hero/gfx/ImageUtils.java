@@ -1,6 +1,6 @@
 package hero.gfx;
 
-import hero.misc.Size;
+import hero.core.Size;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -16,11 +16,11 @@ public class ImageUtils {
     public static BufferedImage loadImage(String src){
         try {
             BufferedImage image = ImageIO.read(ImageUtils.class.getResource(src));
-//            BufferedImage compatibleImage = (BufferedImage) createCompatibleImage(new Size(image.getWidth(null), image.getHeight(null)), ALPHA_BIT_MASK);
-//            Graphics2D graphics = compatibleImage.createGraphics();
-//            graphics.drawImage(image, 0, 0,null);
-//            graphics.dispose();
-            return image;
+            BufferedImage compatibleImage = (BufferedImage) createCompatibleImage(new Size(image.getWidth(null), image.getHeight(null)), ALPHA_BIT_MASK);
+            Graphics2D graphics = compatibleImage.createGraphics();
+            graphics.drawImage(image, 0, 0,null);
+            graphics.dispose();
+            return compatibleImage;
         } catch (Exception e){
             System.out.println("Could not load image from the source");
             e.printStackTrace();

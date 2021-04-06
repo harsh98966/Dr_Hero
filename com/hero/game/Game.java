@@ -6,7 +6,7 @@ import hero.game.settings.GameSettings;
 import hero.game.state.GameState;
 import hero.input.Input;
 import hero.game.state.State;
-import hero.misc.Size;
+import hero.core.Size;
 
 public class Game {
     private final Display display;

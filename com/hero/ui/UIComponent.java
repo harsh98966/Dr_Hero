@@ -1,8 +1,8 @@
 package hero.ui;
 
 import hero.game.state.State;
-import hero.misc.Position;
-import hero.misc.Size;
+import hero.core.Position;
+import hero.core.Size;
 
 import java.awt.image.BufferedImage;
 
